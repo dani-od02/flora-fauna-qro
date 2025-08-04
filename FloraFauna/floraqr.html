@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flora y Fauna Local de Querétaro | Biodiversidad Visual</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Merriweather:wght@700&display=swap');
+        
+        :root {
+            --primary: #2E8B57;  /* Verde principal */
+            --secondary: #3CB371; /* Verde secundario */
+            --accent: #FFD700;   /* Amarillo/dorado para acentos */
+            --light: #F5FFFA;    /* Fondo claro */
+            --dark: #1E5631;     /* Verde oscuro */
+            --overlay: rgba(30, 86, 49, 0.85); /* Overlay semi-transparente */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+        
+        /* Header con imagen de fondo */
+        .header {
+            background: linear-gradient(rgba(30, 86, 49, 0.7), rgba(30, 86, 49, 0.7)), 
+                        url('imagenes/sierra.jpg') center/cover;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(90deg, var(--accent), var(--primary), var(--accent));
+        }
+        
+        .header h1 {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        /* Contenido principal */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .intro h2 {
+            font-family: 'Merriweather', serif;
+            color: var(--dark);
+            font-size: clamp(1.8rem, 4vw, 2rem);
+            margin-bottom: 1rem;
+        }
+        
+        .intro p {
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* Galería */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 350px;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--overlay);
+            color: white;
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        .gallery-caption h3 {
+            font-family: 'Merriweather', serif;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        /* Tarjetas de características */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 4rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-family: 'Merriweather', serif;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Sección "Próximamente" */
+        .coming-soon {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://source.unsplash.com/random/1200x600/?forest');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+            border-radius: 10px;
+            margin: 3rem 0;
+        }
+        
+        .coming-soon h2 {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .coming-soon p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        /* Pie de página */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-logo {
+            font-family: 'Merriweather', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Media queries para móviles */
+        @media (max-width: 768px) {
+            .header {
+                height: 80vh;
+                padding: 1rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .gallery-item {
+                height: 250px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .coming-soon {
+                padding: 2rem 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .intro h2 {
+                font-size: 1.5rem;
+            }
+            
+            .gallery-caption {
+                padding: 1rem;
+            }
+            
+            .gallery-caption h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Cabecera con imagen de fondo -->
+    <!-- REEMPLAZA LA URL CON TU IMAGEN LOCAL: url('img/tu-imagen.jpg') -->
+    <header class="header">
+        <h1>Flora y Fauna Local de Querétaro</h1>
+        <p>Un recorrido visual por la biodiversidad que hace único a nuestro estado</p>
+    </header>
+    
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <section class="intro">
+            <h2>Descubre Nuestros Tesoros Naturales</h2>
+            <p>Querétaro alberga una diversidad asombrosa de plantas y animales, cada uno adaptado a los distintos ecosistemas de nuestro estado. Desde los bosques de la Sierra Gorda hasta las zonas semidesérticas, cada rincón tiene su propia magia.</p>
+        </section>
+        
+        <!-- Galería de imágenes -->
+        <!-- REEMPLAZA LAS IMÁGENES CON FOTOS REALES DE FLORA/FAUNA DE QUERÉTARO -->
+        <section class="gallery">
+            <!-- IMAGEN 1: Flora característica -->
+           <div class="gallery-item">
+                <img src="imagenes/flora.jpeg" alt="Flora de Querétaro" class="gallery-image">
+                <div class="gallery-caption">
+                    <h3>Flora Endémica</h3>
+                    <p>Especies vegetales únicas de nuestra región</p>
+                </div>
+            </div>
+            
+            <!-- IMAGEN 2: Aves -->
+            <div class="gallery-item">
+                <img src="imagenes/colibri.jpg" alt="Flora de Querétaro" class="gallery-image">
+                <div class="gallery-caption">
+                    <h3>Aves Coloridas</h3>
+                    <p>Desde pequeños colibríes hasta majestuosas águilas</p>
+                </div>
+            </div>
+            
+            <!-- IMAGEN 3: Cactáceas -->
+            <div class="gallery-item">
+                <img src="imagenes/cactus.jpg" alt="Flora de Querétaro" class="gallery-image">
+                <div class="gallery-caption">
+                    <h3>Cactáceas</h3>
+                    <p>Especies adaptadas a las zonas áridas</p>
+                </div>
+            </div>
+            
+            <!-- IMAGEN 4: Mariposas -->
+            <div class="gallery-item">
+                <img src="imagenes/pieris.jpg" alt="Flora de Querétaro" class="gallery-image">
+                <div class="gallery-caption">
+                    <h3>Mariposas</h3>
+                    <p>Coloridos polinizadores de nuestros ecosistemas</p>
+                </div>
+            </div>
+            
+            <!-- IMAGEN 5: Mamíferos -->
+            <div class="gallery-item">
+                <img src="imagenes/cacomixtle.jpg" alt="Flora de Querétaro" class="gallery-image">
+                <div class="gallery-caption">
+                    <h3>Mamíferos</h3>
+                    <p>Desde pequeños roedores hasta felinos silvestres</p>
+                </div>
+            </div>
+            
+            <!-- IMAGEN 6: Reptiles -->
+            <div class="gallery-item">
+                <img src="imagenes/cascabel.jpeg" alt="Flora de Querétaro" class="gallery-image">
+                <div class="gallery-caption">
+                    <h3>Reptiles</h3>
+                    <p>Adaptados a los distintos climas de la región</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Características destacadas -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tree"></i>
+                </div>
+                <h3>Diversidad de Ecosistemas</h3>
+                <p>Bosques, desiertos, valles y montañas que albergan vida única</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3>Conocimiento Local</h3>
+                <p>Información recopilada por expertos y comunidades</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h3>Fotografía Natural</h3>
+                <p>Imágenes que capturan la esencia de nuestra biodiversidad</p>
+            </div>
+        </section>
+        
+        <!-- Sección "Próximamente" -->
+        <section class="coming-soon">
+            <h2>Conoce Más</h2>
+            <p>Estamos trabajando para compartir contigo toda la riqueza natural de Querétaro. Pronto tendremos más información sobre nuestras especies y cómo protegerlas.</p>
+        </section>
+    </main>
+    
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="footer-logo">Flora y Fauna Local de Querétaro</div>
+        <p>Descubriendo y preservando nuestra biodiversidad</p>
+        <div class="copyright">
+            &copy; 2023 Proyecto Académico. Todos los derechos reservados.
+        </div>
+    </footer>
+    
+    <!-- Script para animaciones -->
+    <script>
+        // Animación para los elementos al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.gallery-item, .feature-card');
+                const windowHeight = window.innerHeight;
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementPosition < windowHeight - elementVisible) {
+                        element.style.opacity = 1;
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Inicializar elementos como invisibles
+            document.querySelectorAll('.gallery-item, .feature-card').forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            
+            // Ejecutar al cargar y al hacer scroll
+            animateOnScroll();
+            window.addEventListener('scroll', animateOnScroll);
+        });
+    </script>
+</body>
+</html>
